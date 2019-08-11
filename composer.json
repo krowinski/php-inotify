@@ -1,0 +1,31 @@
+{
+  "name": "krowinski/php-inotify",
+  "description": "Wraps php inotify module into object and dispatch them using event dispatcher.",
+  "keywords": [
+    "inotify"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kacper Rowiński",
+      "email": "kacper.rowinski@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.1",
+    "ext-inotify": "^2.0",
+    "symfony/event-dispatcher": "^4.3",
+    "vistik/typed-collections": "^2.0",
+    "myclabs/php-enum": "^1.7"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Inotify\\": "src/Inotify/"
+    }
+  }
+}
