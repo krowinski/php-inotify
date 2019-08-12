@@ -4,7 +4,7 @@
 use Inotify\InotifyConsumerFactory;
 use Inotify\InotifyEvent;
 use Inotify\InotifyEventCodeEnum;
-use Inotify\WatchedDirCollection;
+use Inotify\WatchedResourceCollection;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 include __DIR__ . '/../vendor/autoload.php';
@@ -25,7 +25,7 @@ $inotifyConsumerFactory->registerSubscriber(
     }
 );
 $inotifyConsumerFactory->consume(
-    WatchedDirCollection::createSingle(
+    WatchedResourceCollection::createSingle(
         sys_get_temp_dir(),
         // sys_get_temp_dir() . '/test.log',
         //InotifyEventCodeEnum::ON_CREATE()->getValue() | InotifyEventCodeEnum::ON_DELETE()->getValue(),

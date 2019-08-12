@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Inotify;
 
-class WatchedDir
+class WatchedResource
 {
     private $pathname;
     private $watchOnChangeFlags;

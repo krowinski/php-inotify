@@ -10,7 +10,7 @@ class InotifyProxy implements InotifyProxyInterface
 {
     private $inotify;
     /**
-     * @var WatchedDir[]
+     * @var WatchedResource[]
      */
     private $descriptors;
 
@@ -32,31 +32,32 @@ class InotifyProxy implements InotifyProxyInterface
                     InotifyEventCodeEnum::createFromMask($event['mask']),
                     $event['cookie'],
                     $event['name'],
-                    $this->descriptors[$event['wd']]
+                    $this->descriptors[$event['wd']],
+                    time()
                 );
             }
         }
         unset($events);
     }
 
-    public function addWatch(WatchedDir $watchedDir): void
+    public function addWatch(WatchedResource $watchedResource): void
     {
-        if (!is_readable($watchedDir->getPathname())) {
-            throw new InvalidArgumentException('File or directory not exists: "' . $watchedDir->getPathname() . '""');
+        if (!is_readable($watchedResource->getPathname())) {
+            throw new InvalidArgumentException('Resource not exists: "' . $watchedResource->getPathname() . '""');
         }
 
         $id = inotify_add_watch(
             $this->inotify,
-            $watchedDir->getPathname(),
-            $watchedDir->getWatchOnChangeFlags()
+            $watchedResource->getPathname(),
+            $watchedResource->getWatchOnChangeFlags()
         );
 
-        $this->descriptors[$id] = $watchedDir;
+        $this->descriptors[$id] = $watchedResource;
     }
 
     public function closeWatchers(): void
     {
-        foreach ($this->descriptors as $id => $watchedDir) {
+        foreach ($this->descriptors as $id => $resource) {
             inotify_rm_watch($this->inotify, $id);
         }
     }

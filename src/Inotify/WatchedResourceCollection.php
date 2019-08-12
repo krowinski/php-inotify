@@ -5,15 +5,15 @@ namespace Inotify;
 
 use Vistik\Collections\TypedCollection;
 
-class WatchedDirCollection extends TypedCollection
+class WatchedResourceCollection extends TypedCollection
 {
-    protected $type = WatchedDir::class;
+    protected $type = WatchedResource::class;
 
     public static function createSingle(
         string $pathname,
         int $watchOnChangeFlags,
         string $customName
     ): self {
-        return (new self())->push(new WatchedDir($pathname, $watchOnChangeFlags, $customName));
+        return (new self())->push(new WatchedResource($pathname, $watchOnChangeFlags, $customName));
     }
 }

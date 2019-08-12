@@ -31,12 +31,12 @@ class InotifyConsumerFactory
     }
 
     /**
-     * @param WatchedDirCollection|WatchedDir[] $watchedDirCollection
+     * @param WatchedResourceCollection|WatchedResource[] $collection
      */
-    public function consume(WatchedDirCollection $watchedDirCollection): void
+    public function consume(WatchedResourceCollection $collection): void
     {
-        foreach ($watchedDirCollection as $watchedDir) {
-            $this->inotifyProxy->addWatch($watchedDir);
+        foreach ($collection as $resource) {
+            $this->inotifyProxy->addWatch($resource);
         }
 
         while ($events = $this->inotifyProxy->read()) {

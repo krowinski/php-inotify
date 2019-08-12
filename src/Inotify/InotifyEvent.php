@@ -13,25 +13,33 @@ class InotifyEvent implements Arrayable, JsonSerializable
     private $inotifyEventCodeEnum;
     private $uniqueId;
     private $fileName;
-    private $watchedDir;
+    private $watchedResource;
+    private $timestamp;
 
     public function __construct(
         int $descriptor,
         InotifyEventCodeEnum $inotifyEventCodeEnum,
         int $uniqueId,
         string $fileName,
-        WatchedDir $watchedDir
+        WatchedResource $watchedResource,
+        int $timestamp
     ) {
         $this->id = $descriptor;
         $this->inotifyEventCodeEnum = $inotifyEventCodeEnum;
         $this->uniqueId = $uniqueId;
         $this->fileName = $fileName;
-        $this->watchedDir = $watchedDir;
+        $this->watchedResource = $watchedResource;
+        $this->timestamp = $timestamp;
     }
 
-    public function getWatchedDir(): WatchedDir
+    public function getTimestamp(): int
     {
-        return $this->watchedDir;
+        return $this->timestamp;
+    }
+
+    public function getWatchedResource(): WatchedResource
+    {
+        return $this->watchedResource;
     }
 
     public function __toString(): string
@@ -47,9 +55,10 @@ class InotifyEvent implements Arrayable, JsonSerializable
             'eventDescription' => $this->getInotifyEventCodeDescription(),
             'uniqueId' => $this->getUniqueId(),
             'fileName' => $this->getFileName(),
-            'pathName' => $this->watchedDir->getPathname(),
-            'customName' => $this->watchedDir->getCustomName(),
-            'pathWithFile' => $this->getPathWithFile()
+            'pathName' => $this->watchedResource->getPathname(),
+            'customName' => $this->watchedResource->getCustomName(),
+            'pathWithFile' => $this->getPathWithFile(),
+            'timestamp' => $this->getTimestamp()
         ];
     }
 
@@ -75,7 +84,7 @@ class InotifyEvent implements Arrayable, JsonSerializable
 
     public function getPathWithFile(): string
     {
-        $path = $this->watchedDir->getPathname();
+        $path = $this->watchedResource->getPathname();
         if ('' === $this->getFileName()) {
             return $path;
         }

@@ -12,7 +12,7 @@ interface InotifyProxyInterface
      */
     public function read(): Generator;
 
-    public function addWatch(WatchedDir $watchedDir): void;
+    public function addWatch(WatchedResource $watchedResource): void;
 
     public function closeWatchers(): void;
 
