@@ -98,7 +98,7 @@ Array
 Where:
 ```
 [id] => watch descriptor
-[eventCode] => is a bit mask of events
+[eventCode] => bit mask of events
 [eventDescription] => human readable event description (can be UNKNOWN if not found in InotifyEventCodeEnum)
 [uniqueId] => is a unique id to connect related events (e.g. IN_MOVE_FROM and IN_MOVE_TO)
 [fileName] => name of a file (e.g. if a file was modified in a watched directory)
