@@ -13,7 +13,7 @@ More info in php manual. [here](https://www.php.net/manual/en/book.inotify.php)
 Installation
 =========
 ```bash
-composer require krowinski/bcmath-extended
+composer require krowinski/php-inotify
 ```
 
 Installing inotify extension for php 
