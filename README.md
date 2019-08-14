@@ -10,6 +10,11 @@ And that why we got inotify mechanism that generate event on file|dir changes
 like create, delete, change and many more that we can listen to.
 More info in php manual. [here](https://www.php.net/manual/en/book.inotify.php) 
 
+Installation
+=========
+```bash
+composer require krowinski/bcmath-extended
+```
 
 Installing inotify extension for php 
 =========
