@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Inotify;
 
-
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
@@ -32,11 +31,6 @@ class InotifyEvent implements Arrayable, JsonSerializable
         $this->timestamp = $timestamp;
     }
 
-    public function getTimestamp(): int
-    {
-        return $this->timestamp;
-    }
-
     public function getWatchedResource(): WatchedResource
     {
         return $this->watchedResource;
@@ -51,12 +45,12 @@ class InotifyEvent implements Arrayable, JsonSerializable
     {
         return [
             'id' => $this->getId(),
-            'eventCode' => (string)$this->getInotifyEventCodeEnum(),
+            'eventCode' => $this->getInotifyEventCode(),
             'eventDescription' => $this->getInotifyEventCodeDescription(),
             'uniqueId' => $this->getUniqueId(),
             'fileName' => $this->getFileName(),
-            'pathName' => $this->watchedResource->getPathname(),
-            'customName' => $this->watchedResource->getCustomName(),
+            'pathName' => $this->getWatchedResource()->getPathname(),
+            'customName' => $this->getWatchedResource()->getCustomName(),
             'pathWithFile' => $this->getPathWithFile(),
             'timestamp' => $this->getTimestamp()
         ];
@@ -67,19 +61,24 @@ class InotifyEvent implements Arrayable, JsonSerializable
         return $this->id;
     }
 
-    public function getInotifyEventCodeEnum(): InotifyEventCodeEnum
+    public function getInotifyEventCode(): int
     {
-        return $this->inotifyEventCodeEnum;
+        return $this->inotifyEventCodeEnum->getValue();
     }
 
     public function getInotifyEventCodeDescription(): string
     {
-        return InotifyEventCodeEnum::getCodeDescription((int)$this->getInotifyEventCodeEnum()->getValue());
+        return InotifyEventCodeEnum::getCodeDescription($this->getInotifyEventCode());
     }
 
     public function getUniqueId(): int
     {
         return $this->uniqueId;
+    }
+
+    public function getFileName(): string
+    {
+        return $this->fileName;
     }
 
     public function getPathWithFile(): string
@@ -89,12 +88,16 @@ class InotifyEvent implements Arrayable, JsonSerializable
             return $path;
         }
 
-        return $path . DIRECTORY_SEPARATOR . $this->getFileName();
+        if ($this->getFileName()[0] === DIRECTORY_SEPARATOR) {
+            return $path . DIRECTORY_SEPARATOR . $this->getFileName();
+        }
+
+        return $path . $this->getFileName();
     }
 
-    public function getFileName(): string
+    public function getTimestamp(): int
     {
-        return $this->fileName;
+        return $this->timestamp;
     }
 
     public function jsonSerialize(): array

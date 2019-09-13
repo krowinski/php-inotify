@@ -48,8 +48,10 @@ class InotifyConsumerFactory
         $this->inotifyProxy->closeWatchers();
     }
 
-    public function registerSubscriber(EventSubscriberInterface $eventSubscribers): void
+    public function registerSubscriber(EventSubscriberInterface $eventSubscribers): self
     {
         $this->eventDispatcher->addSubscriber($eventSubscribers);
+
+        return $this;
     }
 }

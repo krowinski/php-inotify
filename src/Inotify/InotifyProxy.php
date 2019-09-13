@@ -12,7 +12,7 @@ class InotifyProxy implements InotifyProxyInterface
     /**
      * @var WatchedResource[]
      */
-    private $descriptors;
+    private $watchedResources;
 
     public function __construct()
     {
@@ -27,14 +27,21 @@ class InotifyProxy implements InotifyProxyInterface
         $events = inotify_read($this->inotify);
         if (false !== $events) {
             foreach ($events as $event) {
-                yield new InotifyEvent(
+                $event = new InotifyEvent(
                     $event['wd'],
                     InotifyEventCodeEnum::createFromMask($event['mask']),
                     $event['cookie'],
                     $event['name'],
-                    $this->descriptors[$event['wd']],
+                    $this->watchedResources[$event['wd']],
                     time()
                 );
+
+                // if file is removed we need clean watchedResources
+                if ($event->getInotifyEventCode() === InotifyEventCodeEnum::ON_IGNORED()->getValue()) {
+                    unset($this->watchedResources[$event->getId()]);
+                }
+
+                yield $event;
             }
         }
         unset($events);
@@ -52,12 +59,12 @@ class InotifyProxy implements InotifyProxyInterface
             $watchedResource->getWatchOnChangeFlags()
         );
 
-        $this->descriptors[$id] = $watchedResource;
+        $this->watchedResources[$id] = $watchedResource;
     }
 
     public function closeWatchers(): void
     {
-        foreach ($this->descriptors as $id => $resource) {
+        foreach ($this->watchedResources as $id => $resource) {
             inotify_rm_watch($this->inotify, $id);
         }
     }

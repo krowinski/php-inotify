@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Inotify;
 
-
 use InvalidArgumentException;
 use MyCLabs\Enum\Enum;
 use UnexpectedValueException;
@@ -72,6 +71,7 @@ class InotifyEventCodeEnum extends Enum
     private const UNKNOWN = 0;
 
     public static $constants = [
+        0 => ['UNKNOWN', 'Unknown code.'],
         1 => ['ON_ACCESS', 'File was accessed (read)'],
         2 => ['ON_MODIFY', 'File was modified'],
         4 => ['ON_ATTRIB', 'Metadata changed (e.g. permissions, mtime, etc.)'],
@@ -99,7 +99,6 @@ class InotifyEventCodeEnum extends Enum
         33554432 => ['ON_DONT_FOLLOW', 'Do not dereference pathname if it is a symlink (Since Linux 2.6.15)'],
         536870912 => ['ON_MASK_ADD', 'Add events to watch mask for this pathname if it already exists (instead of replacing mask).'],
         2147483648 => ['ON_ONESHOT', 'Monitor pathname for one event, then remove from watch list.'],
-        0 => ['UNKNOWN', 'Unknown code.']
     ];
 
     public static function getCodeDescription(int $code): string

@@ -15,8 +15,9 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=7.1",
-    "ext-inotify": "^2.0",
-    "symfony/event-dispatcher": "^4.3",
+    "ext-inotify": "*",
+    "ext-json": "*",
+    "symfony/event-dispatcher": "^2.8|^3.1|^4.0",
     "vistik/typed-collections": "^2.0",
     "myclabs/php-enum": "^1.7"
   },
@@ -26,6 +27,11 @@
   "autoload": {
     "psr-4": {
       "Inotify\\": "src/Inotify/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Inotify\\Tests\\": "tests/"
     }
   }
 }
