@@ -18,6 +18,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: xdebug
+          extensions: inotify
 
       - name: Validate composer.json and composer.lock
         run: composer validate
