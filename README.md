@@ -24,15 +24,8 @@ Installing inotify extension for php
 =========
 To listen on event we need php extension called inotify.
 In most cases you just need to install using pecl
+(example in [dockerfile](https://github.com/krowinski/php-inotify/blob/master/Dockerfile))
 
-For example installation for php 7.1 on debian|ubuntu
-
-```bash
-apt-get update
-apt-get install php-pear make php7.1-dev
-pecl install inotify 
-echo "extension=inotify.so" >>  /etc/php/7.1/cli/php.ini
-```
 
 Example
 =========
