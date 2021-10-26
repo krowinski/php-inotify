@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Inotify\Tests\Integration;
@@ -39,7 +40,7 @@ class BasicTest extends TestCase
 
         /** @var InotifyEvent[] $events */
         $events = [];
-        foreach ($inotify->read() as $id => $inotifyEvent) {
+        foreach ($inotify->read() as $inotifyEvent) {
             $events[] = $inotifyEvent;
         }
 
@@ -138,7 +139,7 @@ class BasicTest extends TestCase
 
         /** @var InotifyEvent[] $events */
         $events = [];
-        foreach ($inotify->read() as $id => $inotifyEvent) {
+        foreach ($inotify->read() as $inotifyEvent) {
             $events[] = $inotifyEvent;
         }
 

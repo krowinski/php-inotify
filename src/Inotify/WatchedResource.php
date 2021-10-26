@@ -1,13 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Inotify;
 
 class WatchedResource
 {
-    private $pathname;
-    private $watchOnChangeFlags;
-    private $customName;
+    private string $pathname;
+    private int $watchOnChangeFlags;
+    private string $customName;
 
     public function __construct(
         string $pathname,

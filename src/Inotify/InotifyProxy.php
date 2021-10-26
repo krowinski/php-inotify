@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Inotify;
@@ -12,7 +13,7 @@ class InotifyProxy implements InotifyProxyInterface
     /**
      * @var WatchedResource[]
      */
-    private $watchedResources;
+    private array $watchedResources;
 
     public function __construct()
     {

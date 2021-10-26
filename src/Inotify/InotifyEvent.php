@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Inotify;
@@ -8,12 +9,12 @@ use JsonSerializable;
 
 class InotifyEvent implements Arrayable, JsonSerializable
 {
-    private $id;
-    private $inotifyEventCodeEnum;
-    private $uniqueId;
-    private $fileName;
-    private $watchedResource;
-    private $timestamp;
+    private int $id;
+    private InotifyEventCodeEnum $inotifyEventCodeEnum;
+    private int $uniqueId;
+    private string $fileName;
+    private WatchedResource $watchedResource;
+    private int $timestamp;
 
     public function __construct(
         int $descriptor,
@@ -29,11 +30,6 @@ class InotifyEvent implements Arrayable, JsonSerializable
         $this->fileName = $fileName;
         $this->watchedResource = $watchedResource;
         $this->timestamp = $timestamp;
-    }
-
-    public function getWatchedResource(): WatchedResource
-    {
-        return $this->watchedResource;
     }
 
     public function __toString(): string
@@ -79,6 +75,11 @@ class InotifyEvent implements Arrayable, JsonSerializable
     public function getFileName(): string
     {
         return $this->fileName;
+    }
+
+    public function getWatchedResource(): WatchedResource
+    {
+        return $this->watchedResource;
     }
 
     public function getPathWithFile(): string

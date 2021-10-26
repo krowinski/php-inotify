@@ -14,15 +14,15 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.4",
     "ext-inotify": "*",
     "ext-json": "*",
-    "symfony/event-dispatcher": "^2.8|^3.1|^4.0",
+    "symfony/event-dispatcher": "^4.0|^5.0|^6.0",
     "vistik/typed-collections": "^2.0",
-    "myclabs/php-enum": "^1.7"
+    "myclabs/php-enum": "^1.8"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.0"
+    "phpunit/phpunit": "9.0"
   },
   "autoload": {
     "psr-4": {

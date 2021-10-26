@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 use Inotify\InotifyConsumerFactory;
 use Inotify\InotifyEvent;
@@ -11,8 +12,7 @@ include __DIR__ . '/../vendor/autoload.php';
 
 (new InotifyConsumerFactory())
     ->registerSubscriber(
-        new class implements EventSubscriberInterface
-        {
+        new class implements EventSubscriberInterface {
             public static function getSubscribedEvents(): array
             {
                 return [InotifyEvent::class => 'onInotifyEvent'];
