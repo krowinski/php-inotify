@@ -89,7 +89,7 @@ class InotifyEvent implements Arrayable, JsonSerializable
             return $path;
         }
 
-        if ($this->getFileName()[0] === DIRECTORY_SEPARATOR) {
+        if ($this->getFileName()[0] !== DIRECTORY_SEPARATOR) {
             return $path . DIRECTORY_SEPARATOR . $this->getFileName();
         }
 
